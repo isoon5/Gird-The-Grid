@@ -1,0 +1,50 @@
+﻿@page "/powerstations"
+
+@using Gird_The_Grid.Data
+@inject PowerStationService StationService
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (stations == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>City</th>
+                <th>Scheduled Maintenance</th>
+                <th>Capacity</th>
+                <th>Type</th>
+                <th>MegaWatts</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var station in stations)
+            {
+                <tr>
+                    <td>@station.Id</td>
+                    <td>@station.City</td>
+                    <td>@station.ScheduledMaintenance.ToShortDateString()</td>
+                    <td>@station.Capacity</td>
+                    <td>@station.Type</td>
+                    <td>@station.MegaWatts</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    public PowerStation[] stations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        stations = await StationService.GetStationsAsync();
+    }
+}
