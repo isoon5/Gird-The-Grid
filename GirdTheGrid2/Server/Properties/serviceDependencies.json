@@ -1,0 +1,20 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "DefaultConnection"
+    },
+    "mssql2": {
+      "type": "mssql",
+      "connectionId": "cs"
+    },
+    "mssql3": {
+      "type": "mssql",
+      "connectionId": "PowerStationsDbContext2"
+    },
+    "mssql4": {
+      "type": "mssql",
+      "connectionId": "PowerStationsDbContext"
+    }
+  }
+}
