@@ -1,0 +1,42 @@
+﻿@page "/statistics"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using GirdTheGrid2.Shared
+@attribute [Authorize]
+@inject HttpClient Http
+
+<AuthorizeView>
+    <Authorized>
+        @if (statisticItem == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <p> @statisticItem.Region</p>
+            <p> @statisticItem.TotalPowerOutput</p>
+            <p> @statisticItem.NumberOfStations</p>
+        }
+    </Authorized>
+    <NotAuthorized>
+        Sorry you cannot see this
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+    private Statistics1 statisticItem;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            statisticItem = await Http.GetFromJsonAsync<Statistics1>("/statistics");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+}
