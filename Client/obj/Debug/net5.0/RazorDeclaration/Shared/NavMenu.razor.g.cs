@@ -97,7 +97,7 @@ using GirdTheGrid2.Client.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 33 "E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\Shared\NavMenu.razor"
+#line 29 "E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\Shared\NavMenu.razor"
        
     private bool collapseNavMenu = true;
 

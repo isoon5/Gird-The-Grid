@@ -2,19 +2,36 @@
 @using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @using GirdTheGrid2.Shared
+
 @attribute [Authorize]
 @inject HttpClient Http
 
 <AuthorizeView>
     <Authorized>
+        <p>Insert a region name and see how many power stations there are and what is the total energy output</p>
+        <EditForm Model="@psStatistics1" OnValidSubmit="@HandleValidSubmit">
+            <ChildContent Context="context1">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <InputText id="RegionName" @bind-Value="psStatistics1.RegionName" />
+
+                <button type="submit">Submit</button>
+            </ChildContent>
+        </EditForm>
+
+
         @if (statisticItem == null)
         {
-            <p><em>Loading...</em></p>
+            <p><em>Waiting...</em></p>
         }
         else
         {
+            <p>Region name:</p>
             <p> @statisticItem.Region</p>
+            <p>Total power output:</p>
             <p> @statisticItem.TotalPowerOutput</p>
+            <p>Number of stations:</p>
             <p> @statisticItem.NumberOfStations</p>
         }
     </Authorized>
@@ -25,9 +42,24 @@
 
 
 @code {
+    private psStatistics1 psStatistics1 = new psStatistics1();
     private Statistics1 statisticItem;
 
-    protected override async Task OnInitializedAsync()
+    protected async Task HandleValidSubmit()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync<psStatistics1>("statistics", psStatistics1);
+            statisticItem = await response.Content.ReadFromJsonAsync<Statistics1>();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+
+    /*protected override async Task OnInitializedAsync()
     {
         try
         {
@@ -37,6 +69,6 @@
         {
             exception.Redirect();
         }
-    }
+    }*/
 
 }

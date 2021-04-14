@@ -111,7 +111,7 @@ using GirdTheGrid2.Shared;
 #line hidden
 #nullable disable
 #nullable restore
-#line 5 "E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\Pages\Statistics.razor"
+#line 6 "E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\Pages\Statistics.razor"
            [Authorize]
 
 #line default
@@ -126,11 +126,26 @@ using GirdTheGrid2.Shared;
         }
         #pragma warning restore 1998
 #nullable restore
-#line 27 "E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\Pages\Statistics.razor"
+#line 44 "E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\Pages\Statistics.razor"
        
+    private psStatistics1 psStatistics1 = new psStatistics1();
     private Statistics1 statisticItem;
 
-    protected override async Task OnInitializedAsync()
+    protected async Task HandleValidSubmit()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync<psStatistics1>("statistics", psStatistics1);
+            statisticItem = await response.Content.ReadFromJsonAsync<Statistics1>();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+
+    /*protected override async Task OnInitializedAsync()
     {
         try
         {
@@ -140,7 +155,7 @@ using GirdTheGrid2.Shared;
         {
             exception.Redirect();
         }
-    }
+    }*/
 
 
 #line default

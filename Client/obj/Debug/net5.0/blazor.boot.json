@@ -198,12 +198,13 @@
       "mscorlib.dll": "sha256-Fi+LybwHL\/VGD\/09OxxtYlT6exn9xVU+LdojZ9juR2c=",
       "netstandard.dll": "sha256-P8xX0ad1hKyWWbBxiXl3cYokFlDiuXwp3pqoYatH0kk=",
       "System.Private.CoreLib.dll": "sha256-2km83sNUTrumGJYdDzsN8RnJqv00vKWLCCh0UGajTB4=",
-      "GirdTheGrid2.Shared.dll": "sha256-EgYGhyXis1fzAwdkeGaE8XgNDgL\/EnjmMxVtA619kSg=",
-      "GirdTheGrid2.Client.dll": "sha256-Cs2zLzrDJTojHreF\/kz4aAyqV5Ph9eNiN8t\/uCtRar8="
+      "GirdTheGrid2.Shared.dll": "sha256-lgkTPcVm7bw+nNqOsG4+arcpXu\/TiuIfkzy4A6p0WWs=",
+      "GirdTheGrid2.Client.dll": "sha256-SKPEXQ3rzjPImR2ZOI0yCnH9f25VXkJ2DhZXs\/kjzZU="
     },
     "lazyAssembly": null,
     "pdb": {
-      "GirdTheGrid2.Client.pdb": "sha256-nn5Aq0jxuktoyoRIDX0y3ZvinNDfBwG0ug0vnxTA1m0="
+      "GirdTheGrid2.Shared.pdb": "sha256-h6sgbI3BrzhDtIzrh0p+yRO\/+X667GWUkGDvn5z35oA=",
+      "GirdTheGrid2.Client.pdb": "sha256-xysElotgvGsmYHw8QPokSrk9EQMdUosTp7o45iQ0S34="
     },
     "runtime": {
       "dotnet.timezones.blat": "sha256-ibxaSjW7s3aLVssChknhzCpgMTHGu4D48Q9OLP3dfe8=",

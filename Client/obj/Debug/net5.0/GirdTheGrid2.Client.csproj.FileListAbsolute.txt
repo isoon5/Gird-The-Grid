@@ -415,7 +415,6 @@ E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\GirdTheGrid2.Client
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\RazorDeclaration\App.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Authentication.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Counter.razor.g.cs
-E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\RazorDeclaration\Pages\FetchData.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\RazorDeclaration\Pages\Index.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\RazorDeclaration\Shared\LoginDisplay.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\RazorDeclaration\Shared\RedirectToLogin.razor.g.cs
@@ -430,7 +429,6 @@ E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\GirdTheGrid2.Client
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\App.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Pages\Authentication.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Pages\Counter.razor.g.cs
-E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Pages\FetchData.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Pages\Index.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Shared\LoginDisplay.razor.g.cs
 E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Shared\RedirectToLogin.razor.g.cs

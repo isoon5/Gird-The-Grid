@@ -25,12 +25,12 @@ namespace GirdTheGrid2.Server.Controllers
         {
             _context = context;
         }
-        [HttpGet]
-        public  Statistics1 Get()
+        [HttpPost]
+        public  Statistics1 Post([FromBody] psStatistics1 statItem)
         {
             
             Statistics1 result= new Statistics1();
-            var items = _context.PowerStations.Where(a => a.StationRegion.Equals("Ciurea"));
+            /*var items = _context.PowerStations.Where(a => a.StationRegion.Equals("Ciurea"));
             int counter = 0;
             double totalPowerOutput = 0;
             foreach (var item in items)
@@ -41,8 +41,8 @@ namespace GirdTheGrid2.Server.Controllers
             result.Region ="Cucuta";
             result.TotalPowerOutput = totalPowerOutput;
             result.NumberOfStations = counter;
-            return result;
-            /*var items = _context.PowerStations.Where(a => a.StationName.Equals(Request.Body.region));
+            return result;*/
+            var items = _context.PowerStations.Where(a => a.StationRegion.Equals(statItem.RegionName));
             int counter = 0;
             double totalPowerOutput = 0;
             foreach (var item in items)
@@ -50,11 +50,12 @@ namespace GirdTheGrid2.Server.Controllers
                 counter++;
                 totalPowerOutput += item.EnergyOutput;
             }
-            result.Region = Request.Body.region;
+            result.Region = statItem.RegionName;
             result.TotalPowerOutput = totalPowerOutput;
             result.NumberOfStations = counter;
+            Console.WriteLine("region.name :" + statItem.RegionName);
             return result;
-            */
+            
 
         }
     }
