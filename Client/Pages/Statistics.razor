@@ -1,0 +1,52 @@
+@page "/statistics"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using GirdTheGrid2.Shared
+
+@attribute [Authorize]
+@inject HttpClient Http
+
+<h1>Data from database test</h1>
+
+
+@if (stations == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Output</th>
+                <th>Region</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var station in stations)
+            {
+                <tr>
+                    <td>@station.Id</td>
+                    <td>@station.StationName</td>
+                    <td>@station.StationType</td>
+                    <td>@station.EnergyOutput</td>
+                    <td>@station.StationRegion</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    public PowerStation[] stations;
+
+    protected override async Task OnInitializedAsync()
+    {
+        stations = await Http.GetFromJsonAsync<PowerStation[]>("api/PowerStations");
+    }
+
+}
