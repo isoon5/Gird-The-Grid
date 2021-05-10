@@ -34,6 +34,105 @@
             <p>Number of stations:</p>
             <p> @statisticItem.NumberOfStations</p>
         }
+        <br />
+        <p1>Insert 2 numbers and see which power stations have their energy output within that interval:</p1>
+        <EditForm Model="@psStatistics2" OnValidSubmit="@HandleValidSubmit2">
+            <ChildContent Context="context2">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <InputNumber id="minOutput" @bind-Value="psStatistics2.minOutput" />
+                <InputNumber id="maxOutput" @bind-Value="psStatistics2.maxOutput" />
+
+                <button type="submit">Submit</button>
+            </ChildContent>
+        </EditForm>
+
+
+        @if (psStatistics2.minOutput == 0 && psStatistics2.maxOutput == 0)
+        {
+            <p><em>Waiting...</em></p>
+        }
+        else
+        {
+           
+            <table class="table" id="myTable">
+                <thead>
+                    <tr>
+                        <th>Station Region</th>
+                        <th>Station Name</th>
+                        <th>Energy output</th>
+                        <th>Station type</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in statisticItem2)
+                    {
+
+
+                        <tr>
+                            <td>@item.StationRegion</td>
+                            <td>@item.StationName</td>
+                            <td>@item.EnergyOutput</td>
+                            <td>@item.StationType</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+
+        <br />
+        <p1>Insert a station Type and see all the powerStations that have that type </p1>
+        <EditForm Model="@psStatistics3" OnValidSubmit="@HandleValidSubmit3">
+            <ChildContent Context="context3">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <InputText id="stationType" @bind-Value="psStatistics3.stationType" />
+
+                <button type="submit">Submit</button>
+            </ChildContent>
+        </EditForm>
+
+
+        @if (statisticItem3 == null)
+        {
+            <p><em>Waiting...</em></p>
+        }
+        else
+        {
+            
+            <table class="table" id="myTable2">
+                <thead>
+                    <tr>
+                        <th>Station Region</th>
+                        <th>Station Name</th>
+                        <th>Energy output</th>
+                        <th>Station type</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in statisticItem3)
+                    {
+
+
+                        <tr>
+                            <td>@item.StationRegion</td>
+                            <td>@item.StationName</td>
+                            <td>@item.EnergyOutput</td>
+                            <td>@item.StationType</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
     </Authorized>
     <NotAuthorized>
         Sorry you cannot see this
@@ -44,6 +143,10 @@
 @code {
     private PsStatistics1 psStatistics1 = new PsStatistics1();
     private Statistics1 statisticItem;
+    private PsStatistics2 psStatistics2 = new PsStatistics2();
+    private List<Statistics2> statisticItem2=new List<Statistics2>();
+    private PsStatistics3 psStatistics3=new PsStatistics3();
+    private List<Statistics2> statisticItem3 = new List<Statistics2>();
 
     protected async Task HandleValidSubmit()
     {
@@ -58,7 +161,30 @@
         }
     }
 
-
+    protected async Task HandleValidSubmit2()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync<PsStatistics2>("statistics2", psStatistics2);
+            statisticItem2 = await response.Content.ReadFromJsonAsync<List<Statistics2>>();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+    protected async Task HandleValidSubmit3()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync<PsStatistics3>("statistics3", psStatistics3);
+            statisticItem3 = await response.Content.ReadFromJsonAsync<List<Statistics2>>();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
     /*protected override async Task OnInitializedAsync()
     {
         try
