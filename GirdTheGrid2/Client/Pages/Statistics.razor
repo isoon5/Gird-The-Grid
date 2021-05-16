@@ -36,7 +36,7 @@
         }
         <br />
         <p2>Insert 2 numbers and see which power stations have their energy output within that interval:</p2>
-        <EditForm Model="@psStatistics2" OnValidSubmit="@HandleValidSubmit2">
+        <EditForm Model="@psStatistics2">
             <ChildContent Context="context2">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
@@ -44,12 +44,12 @@
                 <InputNumber id="minOutput" @bind-Value="psStatistics2.minOutput" />
                 <InputNumber id="maxOutput" @bind-Value="psStatistics2.maxOutput" />
 
-                <button type="submit">Submit</button>
+                <button type="submit" @onclick="@(()=>HandleValidSubmit2(currentPage))">Submit</button>
             </ChildContent>
         </EditForm>
 
 
-        @if (psStatistics2.minOutput == 0 && psStatistics2.maxOutput == 0)
+        @if (statisticItem2.items == null)
         {
             <p><em>Waiting...</em></p>
         }
@@ -68,7 +68,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach (var item in statisticItem2)
+                    @foreach (var item in statisticItem2.items)
                     {
 
 
@@ -82,24 +82,38 @@
                     }
                 </tbody>
             </table>
+            <label bind="nav">@currentPage/@maxPages</label>
+
+            if (currentPage > 1)
+            {
+
+                <button @onclick="@(()=>HandleValidSubmit2(--currentPage))"> ← </button>
+            }
+
+            if (currentPage < maxPages)
+            {
+                <button @onclick="@(()=>HandleValidSubmit2(++currentPage))"> → </button>
+            }
         }
 
 
         <br />
         <p3>Insert a station Type and see all the powerStations that have that type </p3>
-        <EditForm Model="@psStatistics3" OnValidSubmit="@HandleValidSubmit3">
+
+
+
+        <EditForm Model="@psStatistics3">
             <ChildContent Context="context3">
                 <DataAnnotationsValidator />
                 <ValidationSummary />
-
                 <InputText id="stationType" @bind-Value="psStatistics3.stationType" />
 
-                <button type="submit">Submit</button>
+                <button type="submit" @onclick="@(()=>HandleValidSubmit3(currentPage1))">Submit</button>
             </ChildContent>
         </EditForm>
 
 
-        @if (statisticItem3 == null)
+        @if (statisticItem3.items == null)
         {
             <p><em>Waiting...</em></p>
         }
@@ -118,7 +132,7 @@
                 </thead>
                 <tbody>
 
-                    @foreach (var item in statisticItem3)
+                    @foreach (var item in statisticItem3.items)
                     {
 
 
@@ -132,6 +146,18 @@
                     }
                 </tbody>
             </table>
+            <label bind="nav">@currentPage1/@maxPages1</label>
+
+            if (currentPage1 > 1)
+            {
+
+                <button @onclick="@(()=>HandleValidSubmit3(--currentPage1))"> ← </button>
+            }
+
+            if (currentPage1 < maxPages1)
+            {
+                <button @onclick="@(()=>HandleValidSubmit3(++currentPage1))"> → </button>
+            }
         }
 
         <p4>Search powerstation by name </p4>
@@ -170,11 +196,16 @@
     private PsStatistics1 psStatistics1 = new PsStatistics1();
     private Statistics1 statisticItem;
     private PsStatistics2 psStatistics2 = new PsStatistics2();
-    private List<Statistics2> statisticItem2=new List<Statistics2>();
+    private Statistics3 statisticItem2=new Statistics3();
+
     private PsStatistics3 psStatistics3=new PsStatistics3();
-    private List<Statistics2> statisticItem3 = new List<Statistics2>();
+    private Statistics3 statisticItem3 = new Statistics3();
     private PsStatistics4 psStatistics4=new PsStatistics4();
     private Statistics2 statisticItem4 = new Statistics2();
+    private int currentPage = 1;
+    private int maxPages = 1;
+    private int currentPage1 = 1;
+    private int maxPages1 = 3;
     protected async Task HandleValidSubmit()
     {
         try
@@ -188,24 +219,34 @@
         }
     }
 
-    protected async Task HandleValidSubmit2()
+    protected async Task HandleValidSubmit2(int currPage)
     {
         try
         {
+            psStatistics2.currentPage = currPage;
             var response = await Http.PostAsJsonAsync<PsStatistics2>("statistics2", psStatistics2);
-            statisticItem2 = await response.Content.ReadFromJsonAsync<List<Statistics2>>();
+            statisticItem2.items = new List<Statistics2>();
+            statisticItem2 = await response.Content.ReadFromJsonAsync<Statistics3>();
+            maxPages = statisticItem2.maxPages;
+
+            /*foreach (var item in statisticItem2.items)
+                Console.WriteLine(item.StationName);*/
         }
         catch (AccessTokenNotAvailableException exception)
         {
             exception.Redirect();
         }
     }
-    protected async Task HandleValidSubmit3()
+    protected async Task HandleValidSubmit3(int currPage)
     {
         try
         {
+            psStatistics3.currentPage = currPage;
             var response = await Http.PostAsJsonAsync<PsStatistics3>("statistics3", psStatistics3);
-            statisticItem3 = await response.Content.ReadFromJsonAsync<List<Statistics2>>();
+            statisticItem3 = await response.Content.ReadFromJsonAsync<Statistics3>();
+            maxPages1 = statisticItem3.maxPages;
+            /*foreach (var item in statisticItem3.items)
+                Console.WriteLine(item.StationName);*/
         }
         catch (AccessTokenNotAvailableException exception)
         {

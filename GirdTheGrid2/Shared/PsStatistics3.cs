@@ -9,5 +9,6 @@ namespace GirdTheGrid2.Shared
    public class PsStatistics3
     {
         public String stationType { get; set; }
+        public int currentPage { get; set; }
     }
 }

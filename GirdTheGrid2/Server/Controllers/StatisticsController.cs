@@ -1,5 +1,4 @@
 ﻿using GirdTheGrid2.Shared;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;

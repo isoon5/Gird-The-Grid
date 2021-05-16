@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace GirdTheGrid2.Shared
 {
-    public class PsStatistics2
+   public class Statistics3
     {
-        public int minOutput { get; set; }
-        public int maxOutput { get; set; }
-        public int currentPage { get; set; }
+        public List<Statistics2> items { get; set; }
+        
+
+        public int maxPages { get; set; }
     }
 }
