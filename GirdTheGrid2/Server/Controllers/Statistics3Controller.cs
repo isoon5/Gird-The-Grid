@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace GirdTheGrid2.Server.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("statistics3")]
     public class Statistics3Controller : ControllerBase

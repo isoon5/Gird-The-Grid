@@ -35,7 +35,7 @@
             <p> @statisticItem.NumberOfStations</p>
         }
         <br />
-        <p1>Insert 2 numbers and see which power stations have their energy output within that interval:</p1>
+        <p2>Insert 2 numbers and see which power stations have their energy output within that interval:</p2>
         <EditForm Model="@psStatistics2" OnValidSubmit="@HandleValidSubmit2">
             <ChildContent Context="context2">
                 <DataAnnotationsValidator />
@@ -55,7 +55,7 @@
         }
         else
         {
-           
+
             <table class="table" id="myTable">
                 <thead>
                     <tr>
@@ -86,7 +86,7 @@
 
 
         <br />
-        <p1>Insert a station Type and see all the powerStations that have that type </p1>
+        <p3>Insert a station Type and see all the powerStations that have that type </p3>
         <EditForm Model="@psStatistics3" OnValidSubmit="@HandleValidSubmit3">
             <ChildContent Context="context3">
                 <DataAnnotationsValidator />
@@ -105,7 +105,7 @@
         }
         else
         {
-            
+
             <table class="table" id="myTable2">
                 <thead>
                     <tr>
@@ -133,6 +133,32 @@
                 </tbody>
             </table>
         }
+
+        <p4>Search powerstation by name </p4>
+        <EditForm Model="@psStatistics4" OnValidSubmit="@HandleValidSubmit4">
+            <ChildContent Context="context4">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+
+                <InputText id="StationName" @bind-Value="psStatistics4.StationName" />
+
+                <button type="submit">Submit</button>
+            </ChildContent>
+        </EditForm>
+
+        @if (statisticItem4.StationRegion == null)
+        {
+            <p><em>Waiting...</em></p>
+        }
+
+        else
+        {
+            <p>Station Name: @statisticItem4.StationName</p>
+            <p>Station Region: @statisticItem4.StationRegion </p>
+            <p>Energy output: @statisticItem4.EnergyOutput</p>
+            <p>Station type: @statisticItem4.StationType</p>
+
+        }
     </Authorized>
     <NotAuthorized>
         Sorry you cannot see this
@@ -147,7 +173,8 @@
     private List<Statistics2> statisticItem2=new List<Statistics2>();
     private PsStatistics3 psStatistics3=new PsStatistics3();
     private List<Statistics2> statisticItem3 = new List<Statistics2>();
-
+    private PsStatistics4 psStatistics4=new PsStatistics4();
+    private Statistics2 statisticItem4 = new Statistics2();
     protected async Task HandleValidSubmit()
     {
         try
@@ -179,6 +206,19 @@
         {
             var response = await Http.PostAsJsonAsync<PsStatistics3>("statistics3", psStatistics3);
             statisticItem3 = await response.Content.ReadFromJsonAsync<List<Statistics2>>();
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+        }
+    }
+
+    protected async Task HandleValidSubmit4()
+    {
+        try
+        {
+            var response = await Http.PostAsJsonAsync<PsStatistics4>("statistics4", psStatistics4);
+            statisticItem4 = await response.Content.ReadFromJsonAsync<Statistics2>();
         }
         catch (AccessTokenNotAvailableException exception)
         {
