@@ -5,186 +5,254 @@
 
 @attribute [Authorize]
 @inject HttpClient Http
-
 <AuthorizeView>
     <Authorized>
-        <p1>Insert a region name and see how many power stations there are and what is the total energy output</p1>
-        <EditForm Model="@psStatistics1" OnValidSubmit="@HandleValidSubmit">
-            <ChildContent Context="context1">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
+        
+        <div class="container border border-secondary overflow-auto" style="height: 350px;
+        padding: 5px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        background: rgb(196,240,123);
+        background: linear-gradient(56deg, rgba(196,240,123,0.846673703661152) 0%, rgba(245,241,55,0.8102591378348214) 35%, rgba(245,173,109,0.7794468129048494) 65%);
+">
+            
+            <p1 class="lead">Insert a region name and see how many power stations there are and what is the total energy output</p1>
+            <EditForm Model="@psStatistics1" OnValidSubmit="@HandleValidSubmit">
 
-                <InputText id="RegionName" @bind-Value="psStatistics1.RegionName" />
+                <ChildContent Context="context1">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <InputText class="form-control" id="RegionName" @bind-Value="psStatistics1.RegionName" />
 
-                <button type="submit">Submit</button>
-            </ChildContent>
-        </EditForm>
+                        <button type="submit" class="btn-primary">Submit</button>
+                    </div>
+                </ChildContent>
 
-
-        @if (statisticItem == null)
-        {
-            <p><em>Waiting...</em></p>
-        }
-        else
-        {
-            <p>Region name:</p>
-            <p> @statisticItem.Region</p>
-            <p>Total power output:</p>
-            <p> @statisticItem.TotalPowerOutput</p>
-            <p>Number of stations:</p>
-            <p> @statisticItem.NumberOfStations</p>
-        }
-        <br />
-        <p2>Insert 2 numbers and see which power stations have their energy output within that interval:</p2>
-        <EditForm Model="@psStatistics2">
-            <ChildContent Context="context2">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-
-                <InputNumber id="minOutput" @bind-Value="psStatistics2.minOutput" />
-                <InputNumber id="maxOutput" @bind-Value="psStatistics2.maxOutput" />
-
-                <button type="submit" @onclick="@(()=>HandleValidSubmit2(currentPage))">Submit</button>
-            </ChildContent>
-        </EditForm>
+            </EditForm>
 
 
-        @if (statisticItem2.items == null)
-        {
-            <p><em>Waiting...</em></p>
-        }
-        else
-        {
+            @if (statisticItem == null)
+            {
+                <p><em>Waiting...</em></p>
+            }
+            else
+            {
+                <p class="bg-primary">Region name:</p>
+                <p class="bg-info"> @statisticItem.Region</p>
+                <p class="bg-primary">Total power output:</p>
+                <p class="bg-info"> @statisticItem.TotalPowerOutput</p>
+                <p class="bg-primary">Number of stations:</p>
+                <p class="bg-info"> @statisticItem.NumberOfStations</p>
+            }
+            <br />
+            <br />
+            <br />
 
-            <table class="table" id="myTable">
-                <thead>
-                    <tr>
-                        <th>Station Region</th>
-                        <th>Station Name</th>
-                        <th>Energy output</th>
-                        <th>Station type</th>
+        </div>
 
-                    </tr>
-                </thead>
-                <tbody>
+        <div class="container border border-secondary overflow-auto" style="        height: 550px;
+        padding: 5px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        background: rgb(196,240,123);
+        background: linear-gradient(56deg, rgba(196,240,123,0.846673703661152) 0%, rgba(245,241,55,0.8102591378348214) 35%, rgba(245,173,109,0.7794468129048494) 65%);
+">
+            <p2 class="lead">Choose a range and see which power stations have their energy output within that interval:</p2>
+            <EditForm Model="@psStatistics2">
+                <ChildContent Context="context2">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    <div class="form-group">
+                        <input type="range" min="0" max="10000" class="form-control-range" id="minOutput" @bind-value="psStatistics2.minOutput">
+                        <output id="minOutputValue">@psStatistics2.minOutput</output>
+                        <input type="range" min="0" max="10000" class="form-control-range" id="maxOutput" @bind-value="psStatistics2.maxOutput">
+                        <output id="maxOutputValue">@psStatistics2.maxOutput</output>
+                        <br />
+                        @*<InputNumber id="minOutput" @bind-Value="psStatistics2.minOutput" />
+                    <InputNumber id="maxOutput" @bind-Value="psStatistics2.maxOutput" />
+                        *@
+                        <button type="submit" class="btn-primary" @onclick="@(()=>HandleValidSubmit2(currentPage))">Submit</button>
+                    </div>
+                </ChildContent>
+            </EditForm>
 
-                    @foreach (var item in statisticItem2.items)
-                    {
 
+            @if (statisticItem2.items == null)
+            {
+                <p><em>Waiting...</em></p>
+            }
+            else
+            {
 
+                <table class="table" id="myTable">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>@item.StationRegion</td>
-                            <td>@item.StationName</td>
-                            <td>@item.EnergyOutput</td>
-                            <td>@item.StationType</td>
+                            <th>Station Region</th>
+                            <th>Station Name</th>
+                            <th>Energy output</th>
+                            <th>Station type</th>
 
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <label bind="nav">@currentPage/@maxPages</label>
+                    </thead>
+                    <tbody class="table-striped table-hover">
 
-            if (currentPage > 1)
-            {
+                        @foreach (var item in statisticItem2.items)
+                        {
 
-                <button @onclick="@(()=>HandleValidSubmit2(--currentPage))"> ← </button>
+
+                            <tr>
+                                <td>@item.StationRegion</td>
+                                <td>@item.StationName</td>
+                                <td>@item.EnergyOutput</td>
+                                <td>@item.StationType</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <label bind="nav">@currentPage/@maxPages</label>
+
+                if (currentPage > 1)
+                {
+
+                    <button class="btn-outline-info" @onclick="@(()=>HandleValidSubmit2(--currentPage))"> ← Previous </button>
+                }
+
+                if (currentPage < maxPages)
+                {
+                    <button class="btn-outline-info" @onclick="@(()=>HandleValidSubmit2(++currentPage))"> Next → </button>
+                }
             }
 
-            if (currentPage < maxPages)
+
+            <br />
+            <br />
+            <br />
+        </div>
+        <div class="container border border-secondary overflow-auto" style="height: 550px;
+        padding: 5px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        background: rgb(196,240,123);
+        background: linear-gradient(56deg, rgba(196,240,123,0.846673703661152) 0%, rgba(245,241,55,0.8102591378348214) 35%, rgba(245,173,109,0.7794468129048494) 65%);
+    ">
+            <p3 class="lead">Select a station Type and see all the powerStations that have that type </p3>
+
+
+
+            <EditForm Model="@psStatistics3">
+                <ChildContent Context="context3">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+                    @*<InputText id="stationType" @bind-Value="psStatistics3.stationType" />*@
+                    <InputSelect id="stationType" class="custom-select custom-select-lg" @bind-Value="psStatistics3.stationType">
+                        <option value="Solar" selected="selected">Solar </option>
+                        <option value="Coal">Coal </option>
+                        <option value="Gas">Gas</option>
+                        <option value="Geothermal">Geothermal</option>
+                        <option value="Wind">Wind</option>
+                        <option value="Hydro">Hydro</option>
+                        <option value="Diesel">Diesel</option>
+                    </InputSelect>
+
+                    <button type="submit" class="btn-primary" @onclick="@(()=>HandleValidSubmit3(currentPage1))">Submit</button>
+                </ChildContent>
+            </EditForm>
+
+
+            @if (statisticItem3.items == null)
             {
-                <button @onclick="@(()=>HandleValidSubmit2(++currentPage))"> → </button>
+                <p><em>Waiting...</em></p>
             }
-        }
+            else
+            {
 
-
-        <br />
-        <p3>Insert a station Type and see all the powerStations that have that type </p3>
-
-
-
-        <EditForm Model="@psStatistics3">
-            <ChildContent Context="context3">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-                <InputText id="stationType" @bind-Value="psStatistics3.stationType" />
-
-                <button type="submit" @onclick="@(()=>HandleValidSubmit3(currentPage1))">Submit</button>
-            </ChildContent>
-        </EditForm>
-
-
-        @if (statisticItem3.items == null)
-        {
-            <p><em>Waiting...</em></p>
-        }
-        else
-        {
-
-            <table class="table" id="myTable2">
-                <thead>
-                    <tr>
-                        <th>Station Region</th>
-                        <th>Station Name</th>
-                        <th>Energy output</th>
-                        <th>Station type</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (var item in statisticItem3.items)
-                    {
-
-
+                <table class="table" id="myTable2">
+                    <thead class="thead-dark">
                         <tr>
-                            <td>@item.StationRegion</td>
-                            <td>@item.StationName</td>
-                            <td>@item.EnergyOutput</td>
-                            <td>@item.StationType</td>
+                            <th>Station Region</th>
+                            <th>Station Name</th>
+                            <th>Energy output</th>
+                            <th>Station type</th>
 
                         </tr>
-                    }
-                </tbody>
-            </table>
-            <label bind="nav">@currentPage1/@maxPages1</label>
+                    </thead>
+                    <tbody class="table-striped table-hover">
 
-            if (currentPage1 > 1)
+                        @foreach (var item in statisticItem3.items)
+                        {
+
+
+                            <tr>
+                                <td>@item.StationRegion</td>
+                                <td>@item.StationName</td>
+                                <td>@item.EnergyOutput</td>
+                                <td>@item.StationType</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <label bind="nav">@currentPage1/@maxPages1</label>
+
+                if (currentPage1 > 1)
+                {
+
+                    <button class="btn-outline-info" @onclick="@(()=>HandleValidSubmit3(--currentPage1))"> ← Previous </button>
+                }
+
+                if (currentPage1 < maxPages1)
+                {
+                    <button class="btn-outline-info" @onclick="@(()=>HandleValidSubmit3(++currentPage1))">Next → </button>
+                }
+            }
+            <br />
+            <br />
+            <br />
+        </div>
+        <div class="container border border-secondary overflow-auto" style="height: 350px;
+        padding: 5px;
+        margin-bottom: 10px;
+        margin-left: auto;
+        margin-right: auto;
+        background: rgb(196,240,123);
+        background: linear-gradient(56deg, rgba(196,240,123,0.846673703661152) 0%, rgba(245,241,55,0.8102591378348214) 35%, rgba(245,173,109,0.7794468129048494) 65%);
+">
+            <p4>Search powerstation by name </p4>
+            <EditForm Model="@psStatistics4" OnValidSubmit="@HandleValidSubmit4">
+                <ChildContent Context="context4">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <InputText class="form-control" id="StationName" @bind-Value="psStatistics4.StationName" />
+
+                    <button class="btn-primary" type="submit">Submit</button>
+                </ChildContent>
+            </EditForm>
+
+            @if (statisticItem4.StationRegion == null)
             {
-
-                <button @onclick="@(()=>HandleValidSubmit3(--currentPage1))"> ← </button>
+                <p><em>Waiting...</em></p>
             }
 
-            if (currentPage1 < maxPages1)
+            else
             {
-                <button @onclick="@(()=>HandleValidSubmit3(++currentPage1))"> → </button>
+                <p class="bg-primary">Station name:</p>
+                <p class="bg-info">@statisticItem4.StationName</p>
+                <p class="bg-primary">Station Region:</p>
+                <p class="bg-info"> @statisticItem4.StationRegion</p>
+                <p class="bg-primary">Energy output:</p>
+                <p class="bg-info"> @statisticItem4.EnergyOutput</p>
+                <p class="bg-primary">Station type:</p>
+                <p class="bg-info"> @statisticItem4.StationType</p>
+
             }
-        }
-
-        <p4>Search powerstation by name </p4>
-        <EditForm Model="@psStatistics4" OnValidSubmit="@HandleValidSubmit4">
-            <ChildContent Context="context4">
-                <DataAnnotationsValidator />
-                <ValidationSummary />
-
-                <InputText id="StationName" @bind-Value="psStatistics4.StationName" />
-
-                <button type="submit">Submit</button>
-            </ChildContent>
-        </EditForm>
-
-        @if (statisticItem4.StationRegion == null)
-        {
-            <p><em>Waiting...</em></p>
-        }
-
-        else
-        {
-            <p>Station Name: @statisticItem4.StationName</p>
-            <p>Station Region: @statisticItem4.StationRegion </p>
-            <p>Energy output: @statisticItem4.EnergyOutput</p>
-            <p>Station type: @statisticItem4.StationType</p>
-
-        }
+        </div>
+        
     </Authorized>
     <NotAuthorized>
         Sorry you cannot see this
