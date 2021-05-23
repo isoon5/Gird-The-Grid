@@ -18,10 +18,10 @@ namespace GirdTheGrid2.Server.Controllers
             _context = context;
         }
         [HttpPost]
-        public  Statistics1 Post([FromBody] PsStatistics1 statItem)
+        public  StationData Post([FromBody] PowerStationData statItem)
         {
             
-            Statistics1 result= new Statistics1();
+            StationData result= new StationData();
             
             var items = _context.PowerStations.Where(a => a.StationRegion.Equals(statItem.RegionName));
             int counter = 0;

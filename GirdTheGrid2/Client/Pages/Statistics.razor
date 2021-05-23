@@ -5,9 +5,10 @@
 
 @attribute [Authorize]
 @inject HttpClient Http
+@inject IJSRuntime jsRunTime
 <AuthorizeView>
     <Authorized>
-        
+       
         <div class="container border border-secondary overflow-auto" style="height: 350px;
         padding: 5px;
         margin-bottom: 10px;
@@ -18,13 +19,13 @@
 ">
             
             <p1 class="lead">Insert a region name and see how many power stations there are and what is the total energy output</p1>
-            <EditForm Model="@psStatistics1" OnValidSubmit="@HandleValidSubmit">
+            <EditForm Model="@powerStationData" OnValidSubmit="@HandleValidSubmit">
 
                 <ChildContent Context="context1">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
                     <div class="form-group">
-                        <InputText class="form-control" id="RegionName" @bind-Value="psStatistics1.RegionName" />
+                        <InputText class="form-control" id="RegionName" @bind-Value="powerStationData.RegionName" />
 
                         <button type="submit" class="btn-primary">Submit</button>
                     </div>
@@ -61,18 +62,18 @@
         background: linear-gradient(56deg, rgba(196,240,123,0.846673703661152) 0%, rgba(245,241,55,0.8102591378348214) 35%, rgba(245,173,109,0.7794468129048494) 65%);
 ">
             <p2 class="lead">Choose a range and see which power stations have their energy output within that interval:</p2>
-            <EditForm Model="@psStatistics2">
+            <EditForm Model="@powerStationFilter">
                 <ChildContent Context="context2">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
                     <div class="form-group">
-                        <input type="range" min="0" max="10000" class="form-control-range" id="minOutput" @bind-value="psStatistics2.minOutput">
-                        <output id="minOutputValue">@psStatistics2.minOutput</output>
-                        <input type="range" min="0" max="10000" class="form-control-range" id="maxOutput" @bind-value="psStatistics2.maxOutput">
-                        <output id="maxOutputValue">@psStatistics2.maxOutput</output>
+                        <input type="range" min="0" max="10000" class="form-control-range" id="minOutput" @bind-value="powerStationFilter.minOutput">
+                        <output id="minOutputValue">@powerStationFilter.minOutput</output>
+                        <input type="range" min="0" max="10000" class="form-control-range" id="maxOutput" @bind-value="powerStationFilter.maxOutput">
+                        <output id="maxOutputValue">@powerStationFilter.maxOutput</output>
                         <br />
-                        @*<InputNumber id="minOutput" @bind-Value="psStatistics2.minOutput" />
-                    <InputNumber id="maxOutput" @bind-Value="psStatistics2.maxOutput" />
+                        @*<InputNumber id="minOutput" @bind-Value="powerStationFilter.minOutput" />
+                    <InputNumber id="maxOutput" @bind-Value="powerStationFilter.maxOutput" />
                         *@
                         <button type="submit" class="btn-primary" @onclick="@(()=>HandleValidSubmit2(currentPage))">Submit</button>
                     </div>
@@ -140,16 +141,17 @@
         background: rgb(196,240,123);
         background: linear-gradient(56deg, rgba(196,240,123,0.846673703661152) 0%, rgba(245,241,55,0.8102591378348214) 35%, rgba(245,173,109,0.7794468129048494) 65%);
     ">
+            <div id="chartdiv" style ="width: 100%; height: 500px;"></div>
             <p3 class="lead">Select a station Type and see all the powerStations that have that type </p3>
 
 
 
-            <EditForm Model="@psStatistics3">
+            <EditForm Model="@powerStationType">
                 <ChildContent Context="context3">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
-                    @*<InputText id="stationType" @bind-Value="psStatistics3.stationType" />*@
-                    <InputSelect id="stationType" class="custom-select custom-select-lg" @bind-Value="psStatistics3.stationType">
+                    @*<InputText id="stationType" @bind-Value="powerStationType.stationType" />*@
+                    <InputSelect id="stationType" class="custom-select custom-select-lg" @bind-Value="powerStationType.stationType">
                         <option value="Solar" selected="selected">Solar </option>
                         <option value="Coal">Coal </option>
                         <option value="Gas">Gas</option>
@@ -159,7 +161,10 @@
                         <option value="Diesel">Diesel</option>
                     </InputSelect>
 
+
+
                     <button type="submit" class="btn-primary" @onclick="@(()=>HandleValidSubmit3(currentPage1))">Submit</button>
+                    <div id="chartdiv"></div>
                 </ChildContent>
             </EditForm>
 
@@ -223,12 +228,12 @@
         background: linear-gradient(56deg, rgba(196,240,123,0.846673703661152) 0%, rgba(245,241,55,0.8102591378348214) 35%, rgba(245,173,109,0.7794468129048494) 65%);
 ">
             <p4>Search powerstation by name </p4>
-            <EditForm Model="@psStatistics4" OnValidSubmit="@HandleValidSubmit4">
+            <EditForm Model="@searchPowerStation" OnValidSubmit="@HandleValidSubmit4">
                 <ChildContent Context="context4">
                     <DataAnnotationsValidator />
                     <ValidationSummary />
 
-                    <InputText class="form-control" id="StationName" @bind-Value="psStatistics4.StationName" />
+                    <InputText class="form-control" id="StationName" @bind-Value="searchPowerStation.StationName" />
 
                     <button class="btn-primary" type="submit">Submit</button>
                 </ChildContent>
@@ -253,6 +258,7 @@
             }
         </div>
         
+        
     </Authorized>
     <NotAuthorized>
         Sorry you cannot see this
@@ -261,15 +267,15 @@
 
 
 @code {
-    private PsStatistics1 psStatistics1 = new PsStatistics1();
-    private Statistics1 statisticItem;
-    private PsStatistics2 psStatistics2 = new PsStatistics2();
-    private Statistics3 statisticItem2=new Statistics3();
+    private PowerStationData powerStationData = new PowerStationData();
+    private StationData statisticItem;
+    private PowerStationFilter powerStationFilter = new PowerStationFilter();
+    private Types statisticItem2=new Types();
 
-    private PsStatistics3 psStatistics3=new PsStatistics3();
-    private Statistics3 statisticItem3 = new Statistics3();
-    private PsStatistics4 psStatistics4=new PsStatistics4();
-    private Statistics2 statisticItem4 = new Statistics2();
+    private PowerStationType powerStationType=new PowerStationType();
+    private Types statisticItem3 = new Types();
+    private SearchPowerStation searchPowerStation=new SearchPowerStation();
+    private Filters statisticItem4 = new Filters();
     private int currentPage = 1;
     private int maxPages = 1;
     private int currentPage1 = 1;
@@ -278,8 +284,8 @@
     {
         try
         {
-            var response = await Http.PostAsJsonAsync<PsStatistics1>("statistics", psStatistics1);
-            statisticItem = await response.Content.ReadFromJsonAsync<Statistics1>();
+            var response = await Http.PostAsJsonAsync<PowerStationData>("statistics", powerStationData);
+            statisticItem = await response.Content.ReadFromJsonAsync<StationData>();
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -291,10 +297,10 @@
     {
         try
         {
-            psStatistics2.currentPage = currPage;
-            var response = await Http.PostAsJsonAsync<PsStatistics2>("statistics2", psStatistics2);
-            statisticItem2.items = new List<Statistics2>();
-            statisticItem2 = await response.Content.ReadFromJsonAsync<Statistics3>();
+            powerStationFilter.currentPage = currPage;
+            var response = await Http.PostAsJsonAsync<PowerStationFilter>("statistics2", powerStationFilter);
+            statisticItem2.items = new List<Filters>();
+            statisticItem2 = await response.Content.ReadFromJsonAsync<Types>();
             maxPages = statisticItem2.maxPages;
 
             /*foreach (var item in statisticItem2.items)
@@ -309,9 +315,9 @@
     {
         try
         {
-            psStatistics3.currentPage = currPage;
-            var response = await Http.PostAsJsonAsync<PsStatistics3>("statistics3", psStatistics3);
-            statisticItem3 = await response.Content.ReadFromJsonAsync<Statistics3>();
+            powerStationType.currentPage = currPage;
+            var response = await Http.PostAsJsonAsync<PowerStationType>("statistics3", powerStationType);
+            statisticItem3 = await response.Content.ReadFromJsonAsync<Types>();
             maxPages1 = statisticItem3.maxPages;
             /*foreach (var item in statisticItem3.items)
                 Console.WriteLine(item.StationName);*/
@@ -326,8 +332,8 @@
     {
         try
         {
-            var response = await Http.PostAsJsonAsync<PsStatistics4>("statistics4", psStatistics4);
-            statisticItem4 = await response.Content.ReadFromJsonAsync<Statistics2>();
+            var response = await Http.PostAsJsonAsync<SearchPowerStation>("statistics4", searchPowerStation);
+            statisticItem4 = await response.Content.ReadFromJsonAsync<Filters>();
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -338,7 +344,7 @@
     {
         try
         {
-            statisticItem = await Http.GetFromJsonAsync<Statistics1>("/statistics");
+            statisticItem = await Http.GetFromJsonAsync<StationData>("/statistics");
         }
         catch (AccessTokenNotAvailableException exception)
         {
@@ -346,4 +352,4 @@
         }
     }*/
 
-}
+} 
