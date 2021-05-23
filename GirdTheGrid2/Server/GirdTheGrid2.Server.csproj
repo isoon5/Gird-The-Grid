@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <UserSecretsId>GirdTheGrid2.Server-89507B97-70E7-4E8E-8617-10B4DA045F68</UserSecretsId>
   </PropertyGroup>
 

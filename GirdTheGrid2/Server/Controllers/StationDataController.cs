@@ -8,12 +8,12 @@ namespace GirdTheGrid2.Server.Controllers
     //[Authorize]
     [ApiController]
     [Route("statistics")]
-    public class StatisticsController : ControllerBase
+    public class StationDataController : ControllerBase
     {
         private readonly GirdTheGrid2.Server.Data.PowerStationsDbContext _context;
 
         
-        public StatisticsController(GirdTheGrid2.Server.Data.PowerStationsDbContext context)
+        public StationDataController(GirdTheGrid2.Server.Data.PowerStationsDbContext context)
         {
             _context = context;
         }
