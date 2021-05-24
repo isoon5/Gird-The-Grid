@@ -10,6 +10,7 @@
     <title>@ViewData["Title"] - GirdTheGrid</title>
     <link rel="stylesheet" href="~/Identity/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Identity/css/site.css" />
+    <link rel="stylesheet" href="~/css/Style.css" />
 </head>
 <body>
     <header>
@@ -21,9 +22,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    @{
-                        var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false);
-                    }
+                    @{ var result = Engine.FindView(ViewContext, "_LoginPartial", isMainPage: false); }
                     @if (result.Success)
                     {
                         await Html.RenderPartialAsync("_LoginPartial");
@@ -52,6 +51,10 @@
     <script src="~/Identity/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/Identity/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/Identity/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    
     @RenderSection("Scripts", required: false)
 </body>
 </html>
