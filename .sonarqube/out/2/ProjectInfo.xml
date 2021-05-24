@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>GirdTheGrid2.Server</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Product</ProjectType>
+  <ProjectGuid>5636133a-99c1-4d1d-8cc9-69263de8c10d</ProjectGuid>
+  <FullPath>E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Server\GirdTheGrid2.Server.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="E:\tsp.net\GirdTheGrid2\.sonarqube\conf\2\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Server\bin\Debug\net5.0\GirdTheGrid2.Server.dll.RoslynCA.json|E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Server\bin\Debug\net5.0\GirdTheGrid2.Server.Views.dll.RoslynCA.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">E:\tsp.net\GirdTheGrid2\.sonarqube\out\2</Property>
+  </AnalysisSettings>
+  <Configuration>Debug</Configuration>
+  <Platform>AnyCPU</Platform>
+  <TargetFramework>net5.0</TargetFramework>
+</ProjectInfo>

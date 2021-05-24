@@ -1,0 +1,13 @@
+?
+6E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\Program.csutf-8v
+kE:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\.NETCoreApp,Version=v5.0.AssemblyAttributes.csutf-8k
+`E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\GirdTheGrid2.Client.AssemblyInfo.csutf-8\
+QE:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\App.razor.g.csutf-8m
+bE:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Pages\Authentication.razor.g.csutf-8d
+YE:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Pages\Index.razor.g.csutf-8i
+^E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Pages\Statistics.razor.g.csutf-8l
+aE:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Shared\LoginDisplay.razor.g.csutf-8o
+dE:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Shared\RedirectToLogin.razor.g.csutf-8a
+VE:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\_Imports.razor.g.csutf-8j
+_E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Shared\MainLayout.razor.g.csutf-8g
+\E:\tsp.net\GirdTheGrid2\GirdTheGrid2\Client\obj\Debug\net5.0\Razor\Shared\NavMenu.razor.g.csutf-8
